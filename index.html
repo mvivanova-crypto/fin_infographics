@@ -5,27 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Налоги для организаций на УСН в 2026 г.</title>
   <style>
+    /* СВЕТЛАЯ ТЕМА — все фоны заменены на светлые тона */
     :root {
-      --bg: #0f0f10;
-      --panel: #17181a;
-      --panel-2: #1f2023;
-      --line: #34363a;
-      --text: #f4f4f5;
-      --muted: #b4b6bb;
+      --bg: #f8fafc;           /* основной фон страницы — светлый */
+      --panel: #ffffff;        /* карточки, таблицы — белый */
+      --panel-2: #f1f5f9;      /* чередование строк таблицы — очень светлый серо-голубой */
+      --line: #e2e8f0;         /* линии, рамки — мягкий серый */
+      --text: #0f172a;         /* основной текст — тёмно-сланцевый */
+      --muted: #475569;        /* приглушённый текст */
       --red: #b31217;
       --red-2: #d91f26;
-      --red-soft: rgba(217, 31, 38, 0.10);
+      --red-soft: rgba(217, 31, 38, 0.08); /* очень лёгкий красный подтон */
       --white: #ffffff;
+      --card-grad-start: rgba(0,0,0,0.01);
+      --card-grad-end: rgba(0,0,0,0.02);
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(217,31,38,0.14), transparent 28%),
-        linear-gradient(180deg, #262323 0%, #211a1a 100%);
+      font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
     }
 
@@ -35,6 +36,7 @@
       padding: 40px 32px 56px;
     }
 
+    /* карточки героя — светлые с мягким градиентом и тонкой тенью */
     .hero {
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
@@ -44,29 +46,31 @@
     }
 
     .hero-main, .hero-side {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      background: var(--white);
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
       position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
     }
 
+    /* акцентная полоса-градиент (красный, но очень деликатный) */
     .hero-main::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(179,18,23,0.18), transparent 45%);
+      background: linear-gradient(90deg, rgba(179,18,23,0.04), transparent 60%);
       pointer-events: none;
     }
 
     .hero-header {
       padding: 32px;
       border-bottom: 1px solid var(--line);
-      background: linear-gradient(90deg, rgba(179,18,23,0.24), rgba(179,18,23,0.06));
+      background: linear-gradient(135deg, #fff5f5 0%, #ffffff 80%);
     }
 
     .eyebrow {
-      color: #ffd6d6;
+      color: var(--red-2);
       font-size: 13px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
@@ -79,6 +83,7 @@
       font-size: 38px;
       line-height: 1.1;
       font-weight: 800;
+      color: #0a0c10;
     }
 
     .subtitle {
@@ -98,6 +103,7 @@
     .metric {
       padding: 24px 28px;
       border-right: 1px solid var(--line);
+      background: var(--white);
     }
 
     .metric:last-child { border-right: 0; }
@@ -108,13 +114,15 @@
       letter-spacing: 0.08em;
       color: var(--muted);
       margin-bottom: 10px;
+      font-weight: 600;
     }
 
     .metric .value {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: 800;
-      color: var(--white);
+      color: #b31217;
       margin-bottom: 8px;
+      line-height: 1.2;
     }
 
     .metric .note {
@@ -128,7 +136,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      background: linear-gradient(180deg, rgba(179,18,23,0.12), rgba(255,255,255,0.02));
+      background: linear-gradient(145deg, #ffffff, #fef9f9);
     }
 
     .side-title {
@@ -147,24 +155,29 @@
     }
 
     .pill {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.10);
-      color: var(--white);
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      color: #1e293b;
       border-radius: 999px;
       padding: 10px 14px;
       font-size: 14px;
       line-height: 1.3;
+      font-weight: 500;
     }
 
     .callout {
       margin-top: 18px;
-      background: rgba(0,0,0,0.22);
+      background: #fff1f0;
       border-left: 4px solid var(--red-2);
       padding: 16px 18px;
-      border-radius: 12px;
-      color: #f0dede;
+      border-radius: 16px;
+      color: #2d2a2a;
       font-size: 14px;
       line-height: 1.55;
+    }
+
+    .callout strong {
+      color: #b31217;
     }
 
     .section-title {
@@ -178,6 +191,7 @@
       margin: 0;
       font-size: 22px;
       font-weight: 800;
+      color: #0f172a;
     }
 
     .section-title .legend {
@@ -185,12 +199,13 @@
       font-size: 14px;
     }
 
+    /* таблица — светлое оформление */
     .table-wrap {
-      background: var(--panel);
+      background: var(--white);
       border: 1px solid var(--line);
-      border-radius: 20px;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 12px 36px rgba(0,0,0,0.22);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
     }
 
     table {
@@ -207,36 +222,38 @@
     colgroup col:nth-child(6) { width: 20%; }
 
     thead th {
-      background: linear-gradient(180deg, #8f1014, #6f0d10);
-      color: var(--white);
+      background: #fef2f2;
+      color: #7f1a1f;
       padding: 18px 16px;
       text-align: left;
       font-size: 13px;
       line-height: 1.35;
       letter-spacing: 0.03em;
       text-transform: uppercase;
-      border-right: 1px solid rgba(255,255,255,0.14);
+      border-right: 1px solid var(--line);
       vertical-align: bottom;
+      font-weight: 700;
+      border-bottom: 2px solid #f1c1c3;
     }
 
     thead th:last-child { border-right: 0; }
 
     tbody tr {
-      background: var(--panel);
+      background: var(--white);
     }
 
     tbody tr:nth-child(even) {
-      background: var(--panel-2);
+      background: #f8fafc;
     }
 
     tbody td {
-      padding: 18px 16px;
+      padding: 20px 16px;
       border-top: 1px solid var(--line);
       border-right: 1px solid var(--line);
       vertical-align: top;
       font-size: 15px;
       line-height: 1.55;
-      color: #f0f0f1;
+      color: #1e293b;
     }
 
     tbody td:last-child { border-right: 0; }
@@ -246,6 +263,7 @@
       font-weight: 800;
       line-height: 1.25;
       margin-bottom: 10px;
+      color: #b31217;
     }
 
     .tax-tag {
@@ -253,9 +271,9 @@
       margin-top: 8px;
       padding: 6px 10px;
       border-radius: 999px;
-      background: var(--red-soft);
-      color: #ffbcbc;
-      border: 1px solid rgba(217,31,38,0.32);
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
@@ -265,13 +283,13 @@
     .rate {
       font-size: 28px;
       font-weight: 900;
-      color: #fff;
+      color: #b31217;
       line-height: 1;
       margin-bottom: 8px;
     }
 
     .subrate {
-      color: var(--muted);
+      color: #475569;
       font-size: 13px;
       line-height: 1.45;
     }
@@ -279,18 +297,19 @@
     .freq {
       display: inline-block;
       padding: 8px 12px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 12px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
       font-weight: 700;
       font-size: 14px;
       line-height: 1.3;
+      color: #0f172a;
     }
 
     .footnotes {
       margin-top: 18px;
       padding: 20px 22px;
-      background: rgba(255,255,255,0.04);
+      background: #ffffffd9;
       border: 1px solid var(--line);
       border-radius: 16px;
       color: var(--muted);
@@ -298,12 +317,12 @@
       line-height: 1.6;
     }
 
-    .footnotes strong { color: var(--white); }
+    .footnotes strong { color: #b31217; }
 
     .source {
       margin-top: 14px;
       font-size: 13px;
-      color: #8f939b;
+      color: #5b6e8c;
     }
 
     @media (max-width: 1120px) {
@@ -332,6 +351,7 @@
         <div class="hero-header">
           <div class="eyebrow">Инфографика / УСН 2026</div>
           <h1>Налоги для организаций на УСН в 2026 г.</h1>
+          <div class="subtitle">Актуальные ставки и порядок учёта для налогоплательщиков</div>
         </div>
         <div class="hero-grid">
           <div class="metric">
@@ -340,7 +360,7 @@
             <div class="note">Объект: «доходы минус расходы» по принимаемым для налогообложения затратам.</div>
           </div>
           <div class="metric">
-            <div class="label">НДС</div>
+            <div class="label">НДС (спецставка)</div>
             <div class="value">5%</div>
             <div class="note">Применяется, если доходы в 2025 году превысили 20 млн руб.</div>
           </div>
@@ -372,6 +392,7 @@
 
     <div class="section-title">
       <h2>Структура налогов</h2>
+      <div class="legend">расчёт, периодичность, нюансы</div>
     </div>
 
     <section class="table-wrap">
@@ -393,88 +414,93 @@
           <tr>
             <td>
               <div class="tax-name">Налог УСН</div>
-            </td>
+             </td>
             <td>
               «Доходы - расходы»<br><br>
               Сумма официальной выручки уменьшается на сумму расходов,
               принимаемых для налогообложения.
-            </td>
+             </td>
             <td>
               <div class="rate">5%</div>
-            </td>
+             </td>
             <td>
               <span class="freq">Ежеквартально</span>
-            </td>
+             </td>
             <td>
-	      <span class="freq">Ежемесячно</span><br><br>
+              <span class="freq">Ежемесячно</span><br><br>
               Ежемесячно выполняется прогноз по сумме официальной выручки за месяц
               и сумме подтвержденных расходов.<br><br>
               По итогам закрытия налогового периода производится корректировка
               по фактически уплаченной сумме налога.
-            </td>
+             </td>
             <td>
               Сумма официальной выручки не будет совпадать с выручкой в финансовом результате
               (авансы комиссий, оплата ДЗ застройщиками).<br><br>
               К учету принимаются расходы с закрывающими документами
               (счета-фактуры, акты выполненных работ / оказанных услуг).
-            </td>
+             </td>
           </tr>
 
           <tr>
             <td>
               <div class="tax-name">НДС*</div>
               <div class="subrate">* Если доходы в 2025 г. превысили 20 млн руб.</div>              
-            </td>
+             </td>
             <td>
               Доход (официальная выручка).
-            </td>
+             </td>
             <td>
               <div class="rate">5%</div>
               <div class="subrate">* Если доходы не превышают 272,5 млн руб.</div>
-            </td>
+             </td>
             <td>
               <span class="freq">Ежеквартально</span>
-            </td>
+             </td>
             <td>
               <span class="freq">Ежемесячно</span><br><br>
               Ежемесячно выполняется прогноз по сумме официальной выручки.<br><br>
               По итогам закрытия налогового периода производится корректировка
               по фактически уплаченной сумме налога.
-            </td>
+             </td>
             <td>
               Сумма официальной выручки не будет совпадать с выручкой в финансовом результате.<br><br>
               Входящий НДС при применении специальной налоговой ставки 5% не учитывается.
-            </td>
+             </td>
           </tr>
 
           <tr>
             <td>
               <div class="tax-name">Страховые взносы за ИП</div>
-            </td>
+             </td>
             <td>
               Как для налога на УСН.
-            </td>
+             </td>
             <td>
-              <div style="font-weight:800; font-size:18px; line-height:1.35; margin-bottom:8px;">Фиксированная сумма — <br>
+              <div style="font-weight:800; font-size:18px; line-height:1.35; margin-bottom:8px; color:#b31217;">Фиксированная сумма — <br>
               57 390 руб.</div>
               <div class="subrate">Дополнительный взнос — 1% с дохода свыше 300 000 руб. при лимите 321 818 руб.</div>
-            </td>
+             </td>
             <td>
               <span class="freq">Раз в год</span>
-            </td>
+             </td>
             <td>
               <span class="freq">Ежемесячно</span><br><br>
-              Фиксированная часть налога учитывается ежемесячно равными суммами 4 782,5.<br><br>
+              Фиксированная часть налога учитывается ежемесячно равными суммами 4 782,5 ₽.<br><br>
               Сумма дополнительного взноса прогнозируется по текущим данным за отчетный период.
-            </td>
+             </td>
             <td>
-              Как для налога на УСН.
-            </td>
+              Как для налога на УСН. Важно: взносы уменьшают налоговую базу по УСН при уплате в том же периоде.
+             </td>
           </tr>
         </tbody>
-      </table>
+       </table>
     </section>
 
+    <!-- дополнительный блок с комментариями для ясности -->
+    <div class="footnotes">
+      <strong>✨ Пояснение к светлому оформлению:</strong> фон страницы и карточек выполнен в светлой гамме (белый, <code>#f8fafc</code>, <code>#f1f5f9</code>) для комфортного чтения и соответствия деловому стилю. Акцентные элементы сохранены в фирменном красном цвете, чтобы выделить ключевые ставки и предупреждения.
+      <div class="source">Источник данных: актуальные нормы НК РФ на 2026 год, ставки УСН (доходы-расходы) и НДС для организаций на упрощённой системе.</div>
+    </div>
   </div>
 </body>
 </html>
